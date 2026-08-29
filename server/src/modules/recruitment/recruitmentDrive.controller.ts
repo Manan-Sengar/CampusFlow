@@ -9,7 +9,7 @@ import {
 
 import {
   createRecruitmentDrive,
-  getRecruitmentDriveForClub,
+  getRecruitmentDriveContext,
   getRecruitmentDrivesForClub,
   updateRecruitmentDriveStatus,
 } from "./recruitmentDrive.service.js";
@@ -115,13 +115,13 @@ export async function getRecruitmentDrive(
     });
   }
 
-  const drive =
-    await getRecruitmentDriveForClub(
+  const context =
+    await getRecruitmentDriveContext(
       req.params.clubId,
       parsedDriveId.data,
     );
 
-  if (!drive) {
+  if (!context) {
     return res.status(404).json({
       error: {
         code:
@@ -149,8 +149,9 @@ export async function getRecruitmentDrive(
   if (
     !canSeeInternal &&
     (
-      drive.status === "DRAFT" ||
-      drive.status ===
+      context.drive.status ===
+        "DRAFT" ||
+      context.drive.status ===
         "CANCELLED"
     )
   ) {
@@ -165,9 +166,9 @@ export async function getRecruitmentDrive(
     });
   }
 
-  return res.status(200).json({
-    drive,
-  });
+  return res.status(200).json(
+    context,
+  );
 }
 
 export async function changeRecruitmentDriveStatus(

@@ -1,5 +1,6 @@
 import {
   and,
+  asc,
   desc,
   eq,
   inArray,
@@ -8,7 +9,9 @@ import {
 import { db } from "../../db/index.js";
 
 import {
+  clubs,
   recruitmentDrives,
+  teams,
 } from "../../db/schema/index.js";
 
 import type {
@@ -135,6 +138,73 @@ export async function getRecruitmentDriveForClub(
     .limit(1);
 
   return drive ?? null;
+}
+
+export async function getRecruitmentDriveContext(
+  clubId: string,
+  driveId: string,
+) {
+  const drive =
+    await getRecruitmentDriveForClub(
+      clubId,
+      driveId,
+    );
+
+  if (!drive) {
+    return null;
+  }
+
+  const [club] = await db
+    .select({
+      id: clubs.id,
+      name: clubs.name,
+      slug: clubs.slug,
+      description: clubs.description,
+    })
+    .from(clubs)
+    .where(
+      eq(
+        clubs.id,
+        clubId,
+      ),
+    )
+    .limit(1);
+
+  if (!club) {
+    return null;
+  }
+
+  const availableTeams =
+    await db
+      .select({
+        id: teams.id,
+        name: teams.name,
+        description:
+          teams.description,
+      })
+      .from(teams)
+      .where(
+        and(
+          eq(
+            teams.clubId,
+            clubId,
+          ),
+
+          eq(
+            teams.status,
+            "ACTIVE",
+          ),
+        ),
+      )
+      .orderBy(
+        asc(teams.name),
+      );
+
+  return {
+    drive,
+    club,
+    teams: availableTeams,
+  };
 }
 
 function canTransition(
