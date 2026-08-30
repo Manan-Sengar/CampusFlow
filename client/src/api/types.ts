@@ -30,3 +30,35 @@ export interface ApiErrorBody {
     details?: unknown
   }
 }
+
+export type ClubRole = 'ADMIN' | 'LEAD' | 'MEMBER'
+
+export type MembershipStatus = 'ACTIVE' | 'INACTIVE' | 'ALUMNI' | 'REMOVED'
+
+export type ClubStatus = 'ACTIVE' | 'ARCHIVED'
+
+export interface ClubAccess {
+  membershipId: string
+  role: ClubRole
+  membershipStatus: MembershipStatus
+  clubId: string
+  clubName: string
+  clubSlug: string
+  clubDescription: string | null
+  clubStatus: ClubStatus
+  campusId: string
+  campusName: string
+  campusSlug: string
+}
+
+export interface ListMyClubsResponse {
+  clubs: ClubAccess[]
+}
+
+export interface GetClubResponse {
+  club: ClubAccess
+}
+
+export interface ClubOutletContext {
+  club: ClubAccess
+}

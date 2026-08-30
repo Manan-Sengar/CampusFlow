@@ -1,40 +1,55 @@
-import { Building2, CheckCircle2, Sparkles } from 'lucide-react'
-import { useCurrentUser } from '../auth/useCurrentUser.ts'
+import { useQuery } from '@tanstack/react-query'
+import { clubQueryKeys, listMyClubs } from '../api/clubs.ts'
+import { ClubCard } from '../components/clubs/ClubCard.tsx'
+import { EmptyState, ErrorState, LoadingState } from '../components/ui/StatePanel.tsx'
 
 export function ClubsPage() {
-  const { data: user } = useCurrentUser()
-  const firstName = user?.name.trim().split(/\s+/)[0] || 'there'
+  const clubsQuery = useQuery({
+    queryKey: clubQueryKeys.list(),
+    queryFn: listMyClubs,
+  })
+
+  const clubs = clubsQuery.data?.clubs ?? []
 
   return (
     <section className="clubs-page">
       <div className="page-heading">
         <div>
           <p className="eyebrow">Your workspace</p>
-          <h1>Welcome back, {firstName}.</h1>
-          <p>Your CampusFlow account is connected and ready for your clubs.</p>
+          <h1>My clubs</h1>
+          <p>Choose a club to open its workspace and see where you belong.</p>
         </div>
-        <div className="connection-badge">
-          <CheckCircle2 size={17} aria-hidden="true" />
-          Session active
-        </div>
+        {clubsQuery.isSuccess && clubs.length > 0 ? (
+          <p className="page-count">
+            {clubs.length} {clubs.length === 1 ? 'club' : 'clubs'}
+          </p>
+        ) : null}
       </div>
 
-      <div className="dashboard-placeholder">
-        <div className="dashboard-placeholder__icon" aria-hidden="true">
-          <Building2 size={28} />
+      {clubsQuery.isPending ? <LoadingState label="Loading your clubs…" /> : null}
+
+      {clubsQuery.isError ? (
+        <ErrorState
+          title="Your clubs couldn’t be loaded"
+          description="Check your connection and try loading the workspace again."
+          onRetry={() => void clubsQuery.refetch()}
+        />
+      ) : null}
+
+      {clubsQuery.isSuccess && clubs.length === 0 ? (
+        <EmptyState
+          title="No club memberships yet"
+          description="When a club administrator adds you, that club will appear here automatically."
+        />
+      ) : null}
+
+      {clubs.length > 0 ? (
+        <div className="club-grid">
+          {clubs.map((club) => (
+            <ClubCard key={club.membershipId} club={club} />
+          ))}
         </div>
-        <div className="dashboard-placeholder__content">
-          <div className="dashboard-placeholder__label">
-            <Sparkles size={15} aria-hidden="true" />
-            Foundation complete
-          </div>
-          <h2>Your club dashboard is the next step.</h2>
-          <p>
-            Club memberships and management tools will appear here in the next
-            milestone. No placeholder data has been added.
-          </p>
-        </div>
-      </div>
+      ) : null}
     </section>
   )
 }
