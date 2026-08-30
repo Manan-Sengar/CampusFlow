@@ -1,26 +1,14 @@
-import { CalendarDays, Network, UserPlus, UsersRound } from 'lucide-react'
+import { CalendarDays, UserPlus } from 'lucide-react'
 import type { LucideIcon } from 'lucide-react'
 import { useOutletContext } from 'react-router-dom'
 import type { ClubOutletContext } from '../api/types.ts'
 
-type ClubSection = 'members' | 'teams' | 'events' | 'recruitment'
+type ClubSection = 'events' | 'recruitment'
 
 const sectionContent: Record<
   ClubSection,
   { title: string; eyebrow: string; description: string; icon: LucideIcon }
 > = {
-  members: {
-    title: 'Member management is coming next',
-    eyebrow: 'Members',
-    description: 'The next frontend milestone will bring the club roster and role-aware member tools here.',
-    icon: UsersRound,
-  },
-  teams: {
-    title: 'Team management is coming next',
-    eyebrow: 'Teams',
-    description: 'Configurable teams, primary assignments, and team leads will live in this workspace.',
-    icon: Network,
-  },
   events: {
     title: 'Event management is coming soon',
     eyebrow: 'Events',

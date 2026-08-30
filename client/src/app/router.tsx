@@ -9,8 +9,10 @@ import { ClubOverviewPage } from '../pages/ClubOverviewPage.tsx'
 import { ClubSectionPlaceholderPage } from '../pages/ClubSectionPlaceholderPage.tsx'
 import { ClubsPage } from '../pages/ClubsPage.tsx'
 import { LoginPage } from '../pages/LoginPage.tsx'
+import { MembersPage } from '../pages/MembersPage.tsx'
 import { NotFoundPage } from '../pages/NotFoundPage.tsx'
 import { RegisterPage } from '../pages/RegisterPage.tsx'
+import { TeamsPage } from '../pages/TeamsPage.tsx'
 
 export const router = createBrowserRouter([
   {
@@ -41,14 +43,8 @@ export const router = createBrowserRouter([
             element: <ClubLayout />,
             children: [
               { index: true, element: <ClubOverviewPage /> },
-              {
-                path: 'members',
-                element: <ClubSectionPlaceholderPage section="members" />,
-              },
-              {
-                path: 'teams',
-                element: <ClubSectionPlaceholderPage section="teams" />,
-              },
+              { path: 'members', element: <MembersPage /> },
+              { path: 'teams', element: <TeamsPage /> },
               {
                 path: 'events',
                 element: <ClubSectionPlaceholderPage section="events" />,
