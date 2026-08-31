@@ -325,3 +325,135 @@ export interface MarkAttendanceResponse {
   changed: boolean
   created: boolean
 }
+
+export type RecruitmentDriveStatus = 'DRAFT' | 'OPEN' | 'CLOSED' | 'CANCELLED'
+
+export interface RecruitmentDrive {
+  id: string
+  clubId: string
+  title: string
+  description: string | null
+  status: RecruitmentDriveStatus
+  opensAt: string
+  closesAt: string
+  createdByMembershipId: string
+  createdAt: string
+  updatedAt: string
+}
+
+export interface RecruitmentContextClub {
+  id: string
+  name: string
+  slug: string
+  description: string | null
+}
+
+export interface RecruitmentTeam {
+  id: string
+  name: string
+  description: string | null
+}
+
+export interface ListRecruitmentDrivesResponse {
+  drives: RecruitmentDrive[]
+}
+
+export interface GetRecruitmentDriveResponse {
+  drive: RecruitmentDrive
+  club: RecruitmentContextClub
+  teams: RecruitmentTeam[]
+}
+
+export interface CreateRecruitmentDriveInput {
+  title: string
+  description?: string
+  opensAt: string
+  closesAt: string
+}
+
+export interface CreateRecruitmentDriveResponse {
+  drive: RecruitmentDrive
+}
+
+export type RecruitmentDriveStatusTarget = Exclude<RecruitmentDriveStatus, 'DRAFT'>
+
+export interface UpdateRecruitmentDriveStatusResponse {
+  drive: RecruitmentDrive
+  changed: boolean
+}
+
+export type ApplicationStatus =
+  | 'SUBMITTED'
+  | 'UNDER_REVIEW'
+  | 'SHORTLISTED'
+  | 'SELECTED'
+  | 'REJECTED'
+  | 'WITHDRAWN'
+
+export type ReviewableApplicationStatus = Extract<
+  ApplicationStatus,
+  'UNDER_REVIEW' | 'SHORTLISTED' | 'SELECTED' | 'REJECTED'
+>
+
+export interface ApplicationPreferenceInput {
+  teamId: string
+  rank: number
+}
+
+export interface ApplicationPreference {
+  id: string
+  teamId: string
+  teamName: string
+  rank: number
+}
+
+export interface RecruitmentApplication {
+  id: string
+  clubId: string
+  recruitmentDriveId: string
+  userId: string
+  motivation: string | null
+  experience: string | null
+  status: ApplicationStatus
+  submittedAt: string
+  updatedAt: string
+}
+
+export interface SubmitApplicationInput {
+  motivation?: string
+  experience?: string
+  preferences: ApplicationPreferenceInput[]
+}
+
+export interface UpdateApplicationInput {
+  motivation?: string
+  experience?: string
+  preferences?: ApplicationPreferenceInput[]
+}
+
+export interface ApplicationBundleResponse {
+  application: RecruitmentApplication
+  preferences: ApplicationPreference[]
+}
+
+export interface DriveApplication {
+  id: string
+  userId: string
+  name: string
+  email: string
+  motivation: string | null
+  experience: string | null
+  status: ApplicationStatus
+  submittedAt: string
+  updatedAt: string
+  preferences: ApplicationPreference[]
+}
+
+export interface ListDriveApplicationsResponse {
+  applications: DriveApplication[]
+}
+
+export interface UpdateApplicationStatusResponse {
+  application: RecruitmentApplication
+  changed: boolean
+}

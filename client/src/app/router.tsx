@@ -6,7 +6,7 @@ import { AppShell } from '../layouts/AppShell.tsx'
 import { AuthLayout } from '../layouts/AuthLayout.tsx'
 import { ClubLayout } from '../layouts/ClubLayout.tsx'
 import { ClubOverviewPage } from '../pages/ClubOverviewPage.tsx'
-import { ClubSectionPlaceholderPage } from '../pages/ClubSectionPlaceholderPage.tsx'
+import { ApplyPage } from '../pages/ApplyPage.tsx'
 import { ClubsPage } from '../pages/ClubsPage.tsx'
 import { EventsPage } from '../pages/EventsPage.tsx'
 import { EventDetailPage } from '../pages/EventDetailPage.tsx'
@@ -14,6 +14,8 @@ import { LoginPage } from '../pages/LoginPage.tsx'
 import { MembersPage } from '../pages/MembersPage.tsx'
 import { NotFoundPage } from '../pages/NotFoundPage.tsx'
 import { RegisterPage } from '../pages/RegisterPage.tsx'
+import { RecruitmentPage } from '../pages/RecruitmentPage.tsx'
+import { RecruitmentDrivePage } from '../pages/RecruitmentDrivePage.tsx'
 import { TeamsPage } from '../pages/TeamsPage.tsx'
 
 export const router = createBrowserRouter([
@@ -40,6 +42,7 @@ export const router = createBrowserRouter([
         element: <AppShell />,
         children: [
           { path: '/clubs', element: <ClubsPage /> },
+          { path: '/apply/:clubId/:driveId', element: <ApplyPage /> },
           {
             path: '/clubs/:clubId',
             element: <ClubLayout />,
@@ -49,10 +52,8 @@ export const router = createBrowserRouter([
               { path: 'teams', element: <TeamsPage /> },
               { path: 'events', element: <EventsPage /> },
               { path: 'events/:eventId', element: <EventDetailPage /> },
-              {
-                path: 'recruitment',
-                element: <ClubSectionPlaceholderPage section="recruitment" />,
-              },
+              { path: 'recruitment', element: <RecruitmentPage /> },
+              { path: 'recruitment/:driveId', element: <RecruitmentDrivePage /> },
             ],
           },
         ],

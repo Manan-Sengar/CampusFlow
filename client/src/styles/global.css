@@ -2607,3 +2607,946 @@ textarea:focus-visible {
   }
 
 }
+
+/* Recruitment */
+
+.button--danger-soft {
+  color: var(--danger);
+  background: var(--danger-bg);
+  border-color: #efcbc7;
+}
+
+.button--danger-soft:hover:not(:disabled) {
+  background: #ffe4e1;
+  border-color: #e8aaa4;
+}
+
+.recruitment-create-panel {
+  background: linear-gradient(135deg, var(--surface), #f5faf7);
+}
+
+.recruitment-create-form {
+  display: grid;
+  grid-template-columns: minmax(220px, 1.35fr) repeat(2, minmax(180px, 0.8fr));
+  align-items: start;
+  gap: 14px;
+  margin-top: 20px;
+}
+
+.recruitment-create-form .form-field {
+  gap: 7px;
+}
+
+.recruitment-create-form .form-field label {
+  color: var(--ink-700);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.recruitment-create-form input,
+.recruitment-create-form textarea {
+  width: 100%;
+  min-height: 44px;
+  padding: 10px 12px;
+  color: var(--ink-950);
+  background: #ffffff;
+  border: 1px solid #cbd9d2;
+  border-radius: 9px;
+  box-shadow: var(--shadow-sm);
+}
+
+.recruitment-create-form textarea {
+  min-height: 92px;
+  resize: vertical;
+}
+
+.recruitment-create-form input:focus,
+.recruitment-create-form textarea:focus {
+  border-color: var(--brand-700);
+  box-shadow: 0 0 0 4px rgb(23 107 85 / 10%);
+  outline: none;
+}
+
+.recruitment-create-form input[aria-invalid='true'],
+.recruitment-create-form textarea[aria-invalid='true'] {
+  border-color: #d58780;
+}
+
+.recruitment-form-field--wide {
+  grid-column: 1 / -1;
+}
+
+.recruitment-create-form__submit {
+  width: fit-content;
+  grid-column: 1 / -1;
+}
+
+.recruitment-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.recruitment-card {
+  display: flex;
+  min-width: 0;
+  min-height: 330px;
+  flex-direction: column;
+  gap: 18px;
+  padding: 22px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  transition: border-color 160ms ease, box-shadow 160ms ease, transform 160ms ease;
+}
+
+.recruitment-card:hover {
+  border-color: #c5dbd1;
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+}
+
+.recruitment-card__topline,
+.recruitment-card__footer,
+.drive-status-actions__buttons {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 9px;
+}
+
+.recruitment-card__topline {
+  justify-content: space-between;
+}
+
+.recruitment-window-label {
+  color: var(--ink-500);
+  font-size: 0.72rem;
+  font-weight: 750;
+}
+
+.recruitment-card__body {
+  flex: 1;
+}
+
+.recruitment-card__body h2 {
+  margin: 0;
+  font-size: 1.22rem;
+  letter-spacing: -0.03em;
+}
+
+.recruitment-card__body h2 a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.recruitment-card__body h2 a:hover {
+  color: var(--brand-700);
+}
+
+.recruitment-card__body p {
+  display: -webkit-box;
+  margin: 9px 0 0;
+  overflow: hidden;
+  color: var(--ink-500);
+  font-size: 0.83rem;
+  line-height: 1.55;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+}
+
+.recruitment-card__schedule {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 13px;
+  background: var(--surface-soft);
+  border-radius: 10px;
+}
+
+.recruitment-card__schedule svg {
+  flex: 0 0 auto;
+  margin-top: 1px;
+  color: var(--brand-700);
+}
+
+.recruitment-card__schedule span,
+.recruitment-card__schedule strong {
+  display: block;
+}
+
+.recruitment-card__schedule span {
+  color: var(--ink-500);
+  font-size: 0.67rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.recruitment-card__schedule strong {
+  margin-top: 3px;
+  font-size: 0.77rem;
+  line-height: 1.45;
+}
+
+.recruitment-card__footer {
+  justify-content: space-between;
+  padding-top: 2px;
+}
+
+.recruitment-card__action,
+.recruitment-card__secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.76rem;
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.recruitment-card__action {
+  color: var(--brand-700);
+}
+
+.recruitment-card__secondary {
+  color: var(--ink-500);
+}
+
+.drive-status-actions {
+  padding: 18px;
+  background: #fff9e9;
+  border: 1px solid #eedcae;
+  border-radius: 12px;
+}
+
+.drive-status-actions--compact {
+  padding: 12px;
+}
+
+.drive-status-actions--compact .button {
+  min-height: 36px;
+  padding-inline: 11px;
+  font-size: 0.72rem;
+}
+
+.drive-status-actions__hint {
+  margin: 9px 0 0;
+  color: #7a5b15;
+  font-size: 0.72rem;
+  line-height: 1.45;
+}
+
+.drive-status-actions .action-message {
+  margin-top: 8px;
+}
+
+.recruitment-badge--draft,
+.application-badge--submitted {
+  color: #69511a;
+  background: #fff6d8;
+  border-color: #ead899;
+}
+
+.recruitment-badge--open,
+.application-badge--selected {
+  color: #12664e;
+  background: #e7f7ef;
+  border-color: #b9e0cf;
+}
+
+.recruitment-badge--closed,
+.recruitment-badge--cancelled,
+.application-badge--withdrawn {
+  color: var(--ink-500);
+  background: #f0f3f2;
+  border-color: #d8dfdc;
+}
+
+.application-badge--under_review {
+  color: #315b8a;
+  background: #edf5ff;
+  border-color: #c5dbf0;
+}
+
+.application-badge--shortlisted {
+  color: #6c4c9c;
+  background: #f4effc;
+  border-color: #d9caee;
+}
+
+.application-badge--rejected {
+  color: var(--danger);
+  background: var(--danger-bg);
+  border-color: #efcbc7;
+}
+
+.recruitment-badge .badge__dot,
+.application-badge .badge__dot {
+  background: currentColor;
+}
+
+@media (max-width: 920px) {
+  .recruitment-create-form {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .recruitment-form-field--title,
+  .recruitment-form-field--wide {
+    grid-column: 1 / -1;
+  }
+
+  .recruitment-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .recruitment-create-form {
+    grid-template-columns: 1fr;
+  }
+
+  .recruitment-form-field--title,
+  .recruitment-form-field--wide,
+  .recruitment-create-form__submit {
+    width: 100%;
+    grid-column: auto;
+  }
+
+  .recruitment-card {
+    min-height: 0;
+    padding: 18px;
+  }
+
+  .recruitment-card__topline,
+  .recruitment-card__footer {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .drive-status-actions__buttons .button {
+    width: 100%;
+  }
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.recruitment-detail-page,
+.applicant-page {
+  display: grid;
+  gap: 22px;
+}
+
+.applicant-feedback {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin: 0;
+  padding: 13px 15px;
+  color: #12664e;
+  background: #e7f7ef;
+  border: 1px solid #b9e0cf;
+  border-radius: 11px;
+  font-size: 0.82rem;
+  font-weight: 750;
+}
+
+.recruitment-detail-hero,
+.applicant-hero {
+  padding: 30px;
+  background:
+    radial-gradient(circle at 92% 5%, rgb(202 235 220 / 72%), transparent 32%),
+    linear-gradient(135deg, #ffffff, #f7fbf9);
+  border: 1px solid #cfe1d9;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+}
+
+.recruitment-detail-hero__badges {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.recruitment-detail-hero h1,
+.applicant-hero h1 {
+  margin: 18px 0 0;
+  font-size: clamp(1.8rem, 4vw, 2.65rem);
+  letter-spacing: -0.055em;
+}
+
+.recruitment-detail-hero > p,
+.applicant-hero__title-row > div > p {
+  max-width: 760px;
+  margin: 11px 0 0;
+  color: var(--ink-500);
+  line-height: 1.65;
+}
+
+.recruitment-detail-meta,
+.applicant-hero dl,
+.my-application-card__meta {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin: 23px 0;
+}
+
+.recruitment-detail-meta > div,
+.applicant-hero dl > div,
+.my-application-card__meta > div {
+  position: relative;
+  min-width: 0;
+  padding: 14px 14px 14px 43px;
+  background: rgb(255 255 255 / 76%);
+  border: 1px solid #dde9e3;
+  border-radius: 11px;
+}
+
+.recruitment-detail-meta svg,
+.applicant-hero dl svg {
+  position: absolute;
+  top: 15px;
+  left: 14px;
+  color: var(--brand-700);
+}
+
+.recruitment-detail-meta dt,
+.applicant-hero dt,
+.my-application-card__meta dt {
+  color: var(--ink-500);
+  font-size: 0.67rem;
+  font-weight: 800;
+  letter-spacing: 0.045em;
+  text-transform: uppercase;
+}
+
+.recruitment-detail-meta dd,
+.applicant-hero dd,
+.my-application-card__meta dd {
+  margin: 4px 0 0;
+  font-size: 0.78rem;
+  font-weight: 750;
+  line-height: 1.45;
+}
+
+.recruitment-team-list {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 11px;
+  margin-top: 18px;
+}
+
+.recruitment-team-list article {
+  padding: 15px;
+  background: var(--surface-soft);
+  border: 1px solid #e1e9e5;
+  border-radius: 10px;
+}
+
+.recruitment-team-list h3 {
+  margin: 0;
+  font-size: 0.86rem;
+}
+
+.recruitment-team-list p {
+  margin: 6px 0 0;
+  color: var(--ink-500);
+  font-size: 0.75rem;
+  line-height: 1.5;
+}
+
+.applicant-page {
+  width: min(100%, 940px);
+  margin-inline: auto;
+}
+
+.applicant-hero__title-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.applicant-hero__club-copy {
+  max-width: 720px;
+  margin: 7px 0 0;
+  color: var(--ink-500);
+  font-size: 0.79rem;
+  line-height: 1.55;
+}
+
+.applicant-hero__title-row h1 {
+  margin-top: 10px;
+}
+
+.applicant-hero__title-row > .badge {
+  flex: 0 0 auto;
+  margin-top: 12px;
+}
+
+.applicant-hero dl {
+  margin-bottom: 0;
+}
+
+.application-workspace,
+.my-application-card {
+  padding: 26px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+}
+
+.application-workspace__heading,
+.my-application-card__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.application-workspace__heading h2,
+.my-application-card__header h2 {
+  margin: 0;
+  font-size: 1.42rem;
+  letter-spacing: -0.035em;
+}
+
+.application-workspace__heading > div > p:last-child {
+  margin: 7px 0 0;
+  color: var(--ink-500);
+  font-size: 0.84rem;
+  line-height: 1.55;
+}
+
+.application-form {
+  display: grid;
+  gap: 22px;
+  margin-top: 22px;
+}
+
+.application-form__copy,
+.my-application-card__answers,
+.application-review-card__answers {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.application-form .form-field {
+  gap: 7px;
+}
+
+.application-form .form-field label {
+  color: var(--ink-700);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.application-form textarea,
+.preference-row select,
+.application-review-card__action select {
+  width: 100%;
+  padding: 10px 12px;
+  color: var(--ink-950);
+  background: #ffffff;
+  border: 1px solid #cbd9d2;
+  border-radius: 9px;
+  box-shadow: var(--shadow-sm);
+}
+
+.application-form textarea {
+  min-height: 134px;
+  resize: vertical;
+}
+
+.application-form textarea:focus,
+.preference-row select:focus,
+.application-review-card__action select:focus {
+  border-color: var(--brand-700);
+  box-shadow: 0 0 0 4px rgb(23 107 85 / 10%);
+  outline: none;
+}
+
+.application-form textarea[aria-invalid='true'],
+.preference-row select[aria-invalid='true'] {
+  border-color: #d58780;
+}
+
+.preference-builder {
+  padding: 18px;
+  background: var(--brand-50);
+  border: 1px solid #d5e8df;
+  border-radius: 12px;
+}
+
+.preference-builder__heading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.preference-builder__heading h3 {
+  margin: 0;
+  font-size: 1rem;
+}
+
+.preference-builder__heading p {
+  margin: 5px 0 0;
+  color: var(--ink-500);
+  font-size: 0.76rem;
+}
+
+.preference-builder__heading > span {
+  color: var(--brand-700);
+  font-size: 0.75rem;
+  font-weight: 850;
+}
+
+.preference-list {
+  display: grid;
+  gap: 9px;
+  margin: 16px 0 12px;
+}
+
+.preference-row {
+  display: grid;
+  grid-template-columns: 34px minmax(0, 1fr) auto;
+  align-items: start;
+  gap: 9px;
+}
+
+.preference-row__rank {
+  display: grid;
+  width: 34px;
+  height: 42px;
+  place-items: center;
+  color: var(--brand-700);
+  background: #ffffff;
+  border: 1px solid #c8ddd4;
+  border-radius: 9px;
+  font-size: 0.78rem;
+  font-weight: 850;
+}
+
+.preference-row select {
+  min-height: 42px;
+}
+
+.preference-row__actions {
+  display: flex;
+  gap: 5px;
+}
+
+.application-form__footer {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 13px;
+}
+
+.application-form__footer p {
+  margin: 0;
+  color: var(--ink-500);
+  font-size: 0.74rem;
+}
+
+.my-application-card__header > div {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.my-application-card__icon {
+  display: grid;
+  width: 43px;
+  height: 43px;
+  place-items: center;
+  color: var(--brand-700);
+  background: var(--brand-100);
+  border-radius: 12px;
+}
+
+.my-application-card__meta > div {
+  padding-left: 14px;
+  background: var(--surface-soft);
+}
+
+.my-application-card__answers section,
+.application-review-card__answers section {
+  min-width: 0;
+  padding: 16px;
+  background: var(--surface-soft);
+  border-radius: 10px;
+}
+
+.my-application-card__answers h3,
+.my-application-card__preferences h3,
+.application-review-card h4 {
+  margin: 0;
+  color: var(--ink-700);
+  font-size: 0.73rem;
+  letter-spacing: 0.045em;
+  text-transform: uppercase;
+}
+
+.my-application-card__answers p,
+.application-review-card__answers p {
+  margin: 8px 0 0;
+  color: var(--ink-700);
+  font-size: 0.81rem;
+  line-height: 1.6;
+  white-space: pre-wrap;
+}
+
+.my-application-card__preferences {
+  margin: 19px 0;
+}
+
+.my-application-card__preferences ol,
+.application-review-card__preferences ol {
+  display: grid;
+  gap: 8px;
+  margin: 11px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.my-application-card__preferences li,
+.application-review-card__preferences li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px;
+  background: #fbfcfb;
+  border: 1px solid #e4ebe7;
+  border-radius: 9px;
+  font-size: 0.8rem;
+  font-weight: 750;
+}
+
+.my-application-card__preferences li > span,
+.application-review-card__preferences li > span {
+  display: grid;
+  width: 25px;
+  height: 25px;
+  flex: 0 0 auto;
+  place-items: center;
+  color: var(--brand-700);
+  background: var(--brand-100);
+  border-radius: 7px;
+  font-size: 0.7rem;
+  font-weight: 850;
+}
+
+.application-review-list {
+  display: grid;
+  gap: 14px;
+  margin-top: 19px;
+}
+
+.application-review-card {
+  padding: 18px;
+  background: #fbfcfb;
+  border: 1px solid #e1e9e5;
+  border-radius: 12px;
+}
+
+.application-review-card__header,
+.application-review-card__identity,
+.application-review-card__action {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+}
+
+.application-review-card__header {
+  justify-content: space-between;
+}
+
+.application-review-card__avatar {
+  display: grid;
+  width: 38px;
+  height: 38px;
+  flex: 0 0 auto;
+  place-items: center;
+  color: #ffffff;
+  background: var(--brand-700);
+  border-radius: 11px;
+  font-size: 0.85rem;
+  font-weight: 850;
+}
+
+.application-review-card__identity h3 {
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+.application-review-card__identity a {
+  display: block;
+  margin-top: 3px;
+  overflow: hidden;
+  color: var(--ink-500);
+  font-size: 0.72rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.application-review-card__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px;
+  margin: 14px 0;
+  padding-bottom: 14px;
+  border-bottom: 1px solid #e4ebe7;
+}
+
+.application-review-card__meta dt {
+  color: var(--ink-500);
+  font-size: 0.64rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.application-review-card__meta dd {
+  margin: 3px 0 0;
+  font-size: 0.72rem;
+  font-weight: 750;
+}
+
+.application-review-card__preferences {
+  margin-top: 14px;
+}
+
+.application-review-card__preferences ol {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.application-review-card__action {
+  margin-top: 16px;
+  padding-top: 15px;
+  border-top: 1px solid #e4ebe7;
+}
+
+.application-review-card__action label {
+  color: var(--ink-700);
+  font-size: 0.71rem;
+  font-weight: 800;
+}
+
+.application-review-card__action select {
+  width: min(100%, 240px);
+  min-height: 40px;
+}
+
+.application-review-card__action svg {
+  color: var(--brand-700);
+}
+
+.application-review-panel .action-message--success {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+@media (max-width: 920px) {
+  .recruitment-team-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .application-form__copy,
+  .my-application-card__answers,
+  .application-review-card__answers {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .recruitment-detail-hero,
+  .applicant-hero,
+  .application-workspace,
+  .my-application-card {
+    padding: 20px 17px;
+  }
+
+  .recruitment-detail-meta,
+  .applicant-hero dl,
+  .my-application-card__meta,
+  .recruitment-team-list,
+  .application-review-card__preferences ol {
+    grid-template-columns: 1fr;
+  }
+
+  .applicant-hero__title-row,
+  .application-workspace__heading,
+  .my-application-card__header,
+  .application-review-card__header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .application-workspace__heading > .button,
+  .my-application-card > .button {
+    width: 100%;
+  }
+
+  .preference-builder {
+    padding: 14px;
+  }
+
+  .preference-row {
+    grid-template-columns: 32px minmax(0, 1fr);
+  }
+
+  .preference-row__actions {
+    grid-column: 2;
+  }
+
+  .preference-row__actions .icon-button {
+    width: 38px;
+    height: 38px;
+  }
+
+  .application-form__footer {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .application-form__footer .button {
+    width: 100%;
+  }
+
+  .application-review-card {
+    padding: 15px;
+  }
+
+  .application-review-card__identity {
+    min-width: 0;
+  }
+
+  .application-review-card__action {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .application-review-card__action select {
+    width: 100%;
+  }
+}
