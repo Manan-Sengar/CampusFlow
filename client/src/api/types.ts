@@ -188,3 +188,140 @@ export interface AssignTeamLeadResponse {
 export interface RemoveTeamLeadResponse {
   assignment: TeamLeadAssignmentRecord
 }
+
+export type EventVisibility = 'PUBLIC' | 'INTERNAL'
+
+export type EventStatus =
+  | 'DRAFT'
+  | 'PENDING_APPROVAL'
+  | 'APPROVED'
+  | 'COMPLETED'
+  | 'CANCELLED'
+
+export interface ClubEvent {
+  id: string
+  clubId: string
+  title: string
+  description: string | null
+  venue: string | null
+  startAt: string
+  endAt: string
+  visibility: EventVisibility
+  status: EventStatus
+  createdByMembershipId: string
+  approvedByMembershipId: string | null
+  approvedAt: string | null
+  createdAt: string
+  updatedAt: string
+}
+
+export interface ListClubEventsResponse {
+  events: ClubEvent[]
+}
+
+export interface GetClubEventResponse {
+  event: ClubEvent
+}
+
+export interface CreateEventInput {
+  title: string
+  description?: string
+  venue?: string
+  startAt: string
+  endAt: string
+  visibility: EventVisibility
+}
+
+export interface CreateEventResponse {
+  event: ClubEvent
+}
+
+export interface ApproveEventResponse {
+  event: ClubEvent
+  changed: boolean
+}
+
+export type EventAssignmentType = 'COORDINATOR' | 'VOLUNTEER'
+export type EventAssignmentStatus = 'PENDING' | 'ACCEPTED' | 'DECLINED'
+
+export interface CreateEventAssignmentInput {
+  membershipId: string
+  type: EventAssignmentType
+  workingTeamId?: string
+  responsibility?: string
+}
+
+export interface EventAssignmentRecord {
+  id: string
+  clubId: string
+  eventId: string
+  clubMembershipId: string
+  type: EventAssignmentType
+  status: EventAssignmentStatus
+  workingTeamId: string | null
+  responsibility: string | null
+  assignedByMembershipId: string
+  createdAt: string
+  updatedAt: string
+}
+
+export interface EventAssignment {
+  assignmentId: string
+  membershipId: string
+  userId: string
+  name: string
+  email: string
+  type: EventAssignmentType
+  status: EventAssignmentStatus
+  workingTeamId: string | null
+  workingTeamName: string | null
+  responsibility: string | null
+  assignedByMembershipId: string
+  createdAt: string
+}
+
+export interface CreateEventAssignmentResponse {
+  assignment: EventAssignmentRecord
+}
+
+export interface ListEventAssignmentsResponse {
+  assignments: EventAssignment[]
+}
+
+export interface RespondToEventAssignmentResponse {
+  assignment: EventAssignmentRecord
+  changed: boolean
+}
+
+export type AttendanceStatus = 'PRESENT' | 'ABSENT'
+
+export interface EventAttendanceRecord {
+  id: string
+  clubId: string
+  eventId: string
+  clubMembershipId: string
+  status: AttendanceStatus
+  markedByMembershipId: string
+  markedAt: string
+}
+
+export interface EventAttendance {
+  attendanceId: string
+  membershipId: string
+  userId: string
+  name: string
+  email: string
+  status: AttendanceStatus
+  markedByMembershipId: string
+  markedAt: string
+}
+
+export interface ListEventAttendanceResponse {
+  attendance: EventAttendance[]
+}
+
+export interface MarkAttendanceResponse {
+  attendance: EventAttendanceRecord
+  changed: boolean
+  created: boolean
+}

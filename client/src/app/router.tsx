@@ -8,6 +8,8 @@ import { ClubLayout } from '../layouts/ClubLayout.tsx'
 import { ClubOverviewPage } from '../pages/ClubOverviewPage.tsx'
 import { ClubSectionPlaceholderPage } from '../pages/ClubSectionPlaceholderPage.tsx'
 import { ClubsPage } from '../pages/ClubsPage.tsx'
+import { EventsPage } from '../pages/EventsPage.tsx'
+import { EventDetailPage } from '../pages/EventDetailPage.tsx'
 import { LoginPage } from '../pages/LoginPage.tsx'
 import { MembersPage } from '../pages/MembersPage.tsx'
 import { NotFoundPage } from '../pages/NotFoundPage.tsx'
@@ -45,10 +47,8 @@ export const router = createBrowserRouter([
               { index: true, element: <ClubOverviewPage /> },
               { path: 'members', element: <MembersPage /> },
               { path: 'teams', element: <TeamsPage /> },
-              {
-                path: 'events',
-                element: <ClubSectionPlaceholderPage section="events" />,
-              },
+              { path: 'events', element: <EventsPage /> },
+              { path: 'events/:eventId', element: <EventDetailPage /> },
               {
                 path: 'recruitment',
                 element: <ClubSectionPlaceholderPage section="recruitment" />,

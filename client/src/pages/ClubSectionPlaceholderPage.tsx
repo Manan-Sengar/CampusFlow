@@ -1,20 +1,14 @@
-import { CalendarDays, UserPlus } from 'lucide-react'
+import { UserPlus } from 'lucide-react'
 import type { LucideIcon } from 'lucide-react'
 import { useOutletContext } from 'react-router-dom'
 import type { ClubOutletContext } from '../api/types.ts'
 
-type ClubSection = 'events' | 'recruitment'
+type ClubSection = 'recruitment'
 
 const sectionContent: Record<
   ClubSection,
   { title: string; eyebrow: string; description: string; icon: LucideIcon }
 > = {
-  events: {
-    title: 'Event management is coming soon',
-    eyebrow: 'Events',
-    description: 'Event planning, approval, assignments, and attendance will be added in a later milestone.',
-    icon: CalendarDays,
-  },
   recruitment: {
     title: 'Recruitment is coming soon',
     eyebrow: 'Recruitment',
