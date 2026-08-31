@@ -33,7 +33,9 @@ export async function listMyClubs(
 }
 
 export async function getClub(
-  _req: Request<{ clubId: string }>,
+  _req: Request<{
+    clubId: string;
+  }>,
   res: Response,
 ) {
   return res.status(200).json({
@@ -42,7 +44,9 @@ export async function getClub(
 }
 
 export async function listClubMembers(
-  req: Request<{ clubId: string }>,
+  req: Request<{
+    clubId: string;
+  }>,
   res: Response,
 ) {
   const members =
@@ -56,18 +60,25 @@ export async function listClubMembers(
 }
 
 export async function addClubMember(
-  req: Request<{ clubId: string }>,
+  req: Request<{
+    clubId: string;
+  }>,
   res: Response,
 ) {
   const parsed =
-    addMemberSchema.safeParse(req.body);
+    addMemberSchema.safeParse(
+      req.body,
+    );
 
   if (!parsed.success) {
     return res.status(400).json({
       error: {
-        code: "VALIDATION_ERROR",
+        code:
+          "VALIDATION_ERROR",
+
         message:
           "Invalid member data.",
+
         details:
           parsed.error.flatten(),
       },
@@ -83,17 +94,22 @@ export async function addClubMember(
 
     return res
       .status(
-        result.reactivated ? 200 : 201,
+        result.reactivated
+          ? 200
+          : 201,
       )
       .json(result);
   } catch (error) {
     if (
       error instanceof Error &&
-      error.message === "USER_NOT_FOUND"
+      error.message ===
+        "USER_NOT_FOUND"
     ) {
       return res.status(404).json({
         error: {
-          code: "USER_NOT_FOUND",
+          code:
+            "USER_NOT_FOUND",
+
           message:
             "No CampusFlow user exists with that email.",
         },
@@ -109,6 +125,7 @@ export async function addClubMember(
         error: {
           code:
             "MEMBERSHIP_ALREADY_EXISTS",
+
           message:
             "This user is already an active member of the club.",
         },
@@ -122,7 +139,9 @@ export async function addClubMember(
     ) {
       return res.status(409).json({
         error: {
-          code: "USER_DEACTIVATED",
+          code:
+            "USER_DEACTIVATED",
+
           message:
             "A deactivated user cannot be added to a club.",
         },
@@ -148,8 +167,12 @@ export async function changeMemberRole(
   if (!parsed.success) {
     return res.status(400).json({
       error: {
-        code: "VALIDATION_ERROR",
-        message: "Invalid role.",
+        code:
+          "VALIDATION_ERROR",
+
+        message:
+          "Invalid role.",
+
         details:
           parsed.error.flatten(),
       },
@@ -177,6 +200,7 @@ export async function changeMemberRole(
         error: {
           code:
             "MEMBERSHIP_NOT_FOUND",
+
           message:
             "Membership not found.",
         },
@@ -192,8 +216,25 @@ export async function changeMemberRole(
         error: {
           code:
             "LAST_ADMIN_REQUIRED",
+
           message:
             "A club must have at least one active administrator.",
+        },
+      });
+    }
+
+    if (
+      error instanceof Error &&
+      error.message ===
+        "ACTIVE_TEAM_LEAD_REQUIRED_ROLE"
+    ) {
+      return res.status(409).json({
+        error: {
+          code:
+            "ACTIVE_TEAM_LEAD_REQUIRED_ROLE",
+
+          message:
+            "An active team lead must have the LEAD or ADMIN role. Remove their active lead assignments before changing them to MEMBER.",
         },
       });
     }
@@ -217,9 +258,12 @@ export async function changeMemberStatus(
   if (!parsed.success) {
     return res.status(400).json({
       error: {
-        code: "VALIDATION_ERROR",
+        code:
+          "VALIDATION_ERROR",
+
         message:
           "Invalid membership status.",
+
         details:
           parsed.error.flatten(),
       },
@@ -247,6 +291,7 @@ export async function changeMemberStatus(
         error: {
           code:
             "MEMBERSHIP_NOT_FOUND",
+
           message:
             "Membership not found.",
         },
@@ -262,8 +307,25 @@ export async function changeMemberStatus(
         error: {
           code:
             "LAST_ADMIN_REQUIRED",
+
           message:
             "A club must have at least one active administrator.",
+        },
+      });
+    }
+
+    if (
+      error instanceof Error &&
+      error.message ===
+        "ACTIVE_TEAM_LEAD_REQUIRES_ACTIVE_MEMBERSHIP"
+    ) {
+      return res.status(409).json({
+        error: {
+          code:
+            "ACTIVE_TEAM_LEAD_REQUIRES_ACTIVE_MEMBERSHIP",
+
+          message:
+            "An active team lead must have an active club membership. Remove their active lead assignments first.",
         },
       });
     }
