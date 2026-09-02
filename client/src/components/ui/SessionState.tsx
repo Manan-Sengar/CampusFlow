@@ -21,7 +21,7 @@ export function SessionError({ onRetry }: SessionErrorProps) {
       <Brand linked={false} />
       <div className="session-state__message" role="alert">
         <h1>We couldn’t reach CampusFlow</h1>
-        <p>Check that the API is running, then try again.</p>
+        <p>Check your connection, then try again.</p>
       </div>
       <button className="button button--primary" type="button" onClick={onRetry}>
         <RefreshCw size={17} aria-hidden="true" />

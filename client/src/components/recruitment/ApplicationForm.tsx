@@ -121,6 +121,7 @@ export function ApplicationForm({
             rows={6}
             placeholder="Why do you want to join this club?"
             aria-invalid={Boolean(errors.motivation)}
+            aria-describedby={errors.motivation ? 'application-motivation-error' : undefined}
             {...register('motivation', {
               maxLength: {
                 value: 2000,
@@ -129,7 +130,7 @@ export function ApplicationForm({
             })}
           />
           {errors.motivation ? (
-            <p className="field-error">{errors.motivation.message}</p>
+            <p className="field-error" id="application-motivation-error">{errors.motivation.message}</p>
           ) : null}
         </div>
 
@@ -143,6 +144,7 @@ export function ApplicationForm({
             rows={6}
             placeholder="Share relevant projects, responsibilities, or skills."
             aria-invalid={Boolean(errors.experience)}
+            aria-describedby={errors.experience ? 'application-experience-error' : undefined}
             {...register('experience', {
               maxLength: {
                 value: 2000,
@@ -151,7 +153,7 @@ export function ApplicationForm({
             })}
           />
           {errors.experience ? (
-            <p className="field-error">{errors.experience.message}</p>
+            <p className="field-error" id="application-experience-error">{errors.experience.message}</p>
           ) : null}
         </div>
       </div>
@@ -183,6 +185,11 @@ export function ApplicationForm({
                   <select
                     id={`preference-${field.id}`}
                     aria-invalid={Boolean(errors.preferences?.[index]?.teamId)}
+                    aria-describedby={
+                      errors.preferences?.[index]?.teamId
+                        ? `preference-${field.id}-error`
+                        : undefined
+                    }
                     {...register(`preferences.${index}.teamId`, {
                       required: 'Choose a team.',
                     })}
@@ -199,7 +206,9 @@ export function ApplicationForm({
                     ))}
                   </select>
                   {errors.preferences?.[index]?.teamId ? (
-                    <p className="field-error">{errors.preferences[index]?.teamId?.message}</p>
+                    <p className="field-error" id={`preference-${field.id}-error`}>
+                      {errors.preferences[index]?.teamId?.message}
+                    </p>
                   ) : null}
                 </div>
                 <div className="preference-row__actions">

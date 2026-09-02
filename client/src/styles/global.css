@@ -14,6 +14,7 @@
   --danger: #b42318;
   --danger-bg: #fff1f0;
   --shadow-sm: 0 1px 2px rgb(17 49 40 / 6%);
+  --shadow-md: 0 12px 32px rgb(10 46 37 / 10%);
   --shadow-lg: 0 24px 70px rgb(10 46 37 / 14%);
   --radius-sm: 10px;
   --radius-md: 16px;
@@ -960,8 +961,7 @@ textarea:focus-visible {
     linear-gradient(135deg, var(--brand-100), transparent);
 }
 
-.overview-card h2,
-.feature-placeholder h2 {
+.overview-card h2 {
   margin: 0;
   font-size: 1.5rem;
   letter-spacing: -0.04em;
@@ -2203,42 +2203,6 @@ textarea:focus-visible {
 .status-choice--absent.is-selected {
   background: var(--danger-bg);
   border-color: #e4aaa4;
-}
-
-.feature-placeholder {
-  display: flex;
-  min-height: 330px;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  padding: 48px 28px;
-  text-align: center;
-  background:
-    linear-gradient(rgb(255 255 255 / 94%), rgb(255 255 255 / 94%)),
-    linear-gradient(90deg, var(--border) 1px, transparent 1px),
-    linear-gradient(var(--border) 1px, transparent 1px);
-  background-size: auto, 34px 34px, 34px 34px;
-  border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-sm);
-}
-
-.feature-placeholder__icon {
-  display: grid;
-  width: 60px;
-  height: 60px;
-  margin-bottom: 22px;
-  place-items: center;
-  color: var(--brand-700);
-  background: var(--brand-100);
-  border-radius: 18px;
-}
-
-.feature-placeholder > p:last-child {
-  max-width: 600px;
-  margin: 14px 0 0;
-  color: var(--ink-500);
-  line-height: 1.65;
 }
 
 .not-found {

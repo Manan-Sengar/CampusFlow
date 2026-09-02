@@ -100,13 +100,16 @@ export function CreateEventForm({ clubId, role }: CreateEventFormProps) {
             id="event-title"
             placeholder="Annual showcase"
             aria-invalid={Boolean(errors.title)}
+            aria-describedby={errors.title ? 'event-title-error' : undefined}
             {...register('title', {
               required: 'Enter an event title.',
               minLength: { value: 2, message: 'Title must be at least 2 characters.' },
               maxLength: { value: 150, message: 'Title must be 150 characters or fewer.' },
             })}
           />
-          {errors.title ? <p className="field-error">{errors.title.message}</p> : null}
+          {errors.title ? (
+            <p className="field-error" id="event-title-error">{errors.title.message}</p>
+          ) : null}
         </div>
 
         <div className="form-field">
@@ -123,9 +126,12 @@ export function CreateEventForm({ clubId, role }: CreateEventFormProps) {
             id="event-start"
             type="datetime-local"
             aria-invalid={Boolean(errors.startAt)}
+            aria-describedby={errors.startAt ? 'event-start-error' : undefined}
             {...register('startAt', { required: 'Choose a start date and time.' })}
           />
-          {errors.startAt ? <p className="field-error">{errors.startAt.message}</p> : null}
+          {errors.startAt ? (
+            <p className="field-error" id="event-start-error">{errors.startAt.message}</p>
+          ) : null}
         </div>
 
         <div className="form-field">
@@ -134,6 +140,7 @@ export function CreateEventForm({ clubId, role }: CreateEventFormProps) {
             id="event-end"
             type="datetime-local"
             aria-invalid={Boolean(errors.endAt)}
+            aria-describedby={errors.endAt ? 'event-end-error' : undefined}
             {...register('endAt', {
               required: 'Choose an end date and time.',
               validate: (value) =>
@@ -141,7 +148,9 @@ export function CreateEventForm({ clubId, role }: CreateEventFormProps) {
                 'End time must be after the start time.',
             })}
           />
-          {errors.endAt ? <p className="field-error">{errors.endAt.message}</p> : null}
+          {errors.endAt ? (
+            <p className="field-error" id="event-end-error">{errors.endAt.message}</p>
+          ) : null}
         </div>
 
         <div className="form-field event-form-field--wide">
@@ -153,11 +162,14 @@ export function CreateEventForm({ clubId, role }: CreateEventFormProps) {
             id="event-venue"
             placeholder="Student activity centre"
             aria-invalid={Boolean(errors.venue)}
+            aria-describedby={errors.venue ? 'event-venue-error' : undefined}
             {...register('venue', {
               maxLength: { value: 250, message: 'Venue must be 250 characters or fewer.' },
             })}
           />
-          {errors.venue ? <p className="field-error">{errors.venue.message}</p> : null}
+          {errors.venue ? (
+            <p className="field-error" id="event-venue-error">{errors.venue.message}</p>
+          ) : null}
         </div>
 
         <div className="form-field event-form-field--wide">
@@ -170,12 +182,13 @@ export function CreateEventForm({ clubId, role }: CreateEventFormProps) {
             rows={3}
             placeholder="What members should know about this event"
             aria-invalid={Boolean(errors.description)}
+            aria-describedby={errors.description ? 'event-description-error' : undefined}
             {...register('description', {
               maxLength: { value: 2000, message: 'Description must be 2,000 characters or fewer.' },
             })}
           />
           {errors.description ? (
-            <p className="field-error">{errors.description.message}</p>
+            <p className="field-error" id="event-description-error">{errors.description.message}</p>
           ) : null}
         </div>
 

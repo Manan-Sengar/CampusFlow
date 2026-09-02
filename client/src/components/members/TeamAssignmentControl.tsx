@@ -48,6 +48,7 @@ export function TeamAssignmentControl({
         <button
           className="button button--ghost button--compact"
           type="button"
+          aria-label={isPending ? 'Saving primary team assignment' : 'Assign primary team'}
           disabled={disabled || isPending || !teamId}
           onClick={() => void handleAssignment()}
         >

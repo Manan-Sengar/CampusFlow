@@ -51,13 +51,16 @@ export function CreateTeamForm({ clubId }: { clubId: string }) {
             id="team-name"
             placeholder="Design team"
             aria-invalid={Boolean(errors.name)}
+            aria-describedby={errors.name ? 'team-name-error' : undefined}
             {...register('name', {
               required: 'Enter a team name.',
               minLength: { value: 2, message: 'Team name must be at least 2 characters.' },
               maxLength: { value: 100, message: 'Team name must be 100 characters or fewer.' },
             })}
           />
-          {errors.name ? <p className="field-error">{errors.name.message}</p> : null}
+          {errors.name ? (
+            <p className="field-error" id="team-name-error">{errors.name.message}</p>
+          ) : null}
         </div>
 
         <div className="form-field form-field--wide">
@@ -70,12 +73,13 @@ export function CreateTeamForm({ clubId }: { clubId: string }) {
             rows={2}
             placeholder="What this team works on"
             aria-invalid={Boolean(errors.description)}
+            aria-describedby={errors.description ? 'team-description-error' : undefined}
             {...register('description', {
               maxLength: { value: 500, message: 'Description must be 500 characters or fewer.' },
             })}
           />
           {errors.description ? (
-            <p className="field-error">{errors.description.message}</p>
+            <p className="field-error" id="team-description-error">{errors.description.message}</p>
           ) : null}
         </div>
 

@@ -44,6 +44,7 @@ export function MemberCard({
 }: MemberCardProps) {
   const queryClient = useQueryClient()
   const [successMessage, setSuccessMessage] = useState<string | null>(null)
+  const [actionError, setActionError] = useState<unknown>(null)
   const refreshMembership = async (includeLeadQueries = false) => {
     const invalidations = [
       queryClient.invalidateQueries({ queryKey: memberQueryKeys.list(clubId) }),
@@ -66,24 +67,36 @@ export function MemberCard({
   }
   const roleMutation = useMutation({
     mutationFn: (role: ClubRole) => updateMemberRole(clubId, member.membershipId, role),
+    onMutate: () => {
+      setSuccessMessage(null)
+      setActionError(null)
+    },
     onSuccess: async (result) => {
       setSuccessMessage(`Role changed to ${result.membership.role.toLowerCase()}.`)
       await refreshMembership(true)
     },
-    onError: () => setSuccessMessage(null),
+    onError: (error) => setActionError(error),
   })
   const statusMutation = useMutation({
     mutationFn: (status: MembershipStatus) =>
       updateMemberStatus(clubId, member.membershipId, status),
+    onMutate: () => {
+      setSuccessMessage(null)
+      setActionError(null)
+    },
     onSuccess: async (result) => {
       setSuccessMessage(`Membership changed to ${result.membership.status.toLowerCase()}.`)
       await refreshMembership()
     },
-    onError: () => setSuccessMessage(null),
+    onError: (error) => setActionError(error),
   })
   const teamMutation = useMutation({
     mutationFn: (teamId: string) =>
       assignMemberPrimaryTeam(clubId, member.membershipId, teamId),
+    onMutate: () => {
+      setSuccessMessage(null)
+      setActionError(null)
+    },
     onSuccess: async (result) => {
       setSuccessMessage(
         result.changed
@@ -94,11 +107,11 @@ export function MemberCard({
         queryKey: memberQueryKeys.history(clubId, member.membershipId),
       })
     },
-    onError: () => setSuccessMessage(null),
+    onError: (error) => setActionError(error),
   })
-  const actionError = roleMutation.error ?? statusMutation.error ?? teamMutation.error
   const activeTeams = teams.filter((team) => team.status === 'ACTIVE')
-  const controlsPending = roleMutation.isPending || statusMutation.isPending
+  const controlsPending =
+    roleMutation.isPending || statusMutation.isPending || teamMutation.isPending
 
   function requestStatusChange(status: MembershipStatus) {
     if (status === member.status) return
@@ -170,7 +183,13 @@ export function MemberCard({
             <TeamAssignmentControl
               controlId={`primary-team-${member.membershipId}`}
               teams={activeTeams}
-              disabled={member.status !== 'ACTIVE' || teamsPending || Boolean(teamsError)}
+              disabled={
+                member.status !== 'ACTIVE' ||
+                teamsPending ||
+                Boolean(teamsError) ||
+                roleMutation.isPending ||
+                statusMutation.isPending
+              }
               isPending={teamMutation.isPending}
               onAssign={(teamId) => teamMutation.mutateAsync(teamId)}
             />

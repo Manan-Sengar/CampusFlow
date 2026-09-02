@@ -84,13 +84,16 @@ export function CreateRecruitmentDriveForm({ clubId }: { clubId: string }) {
             id="drive-title"
             placeholder="Autumn 2026 intake"
             aria-invalid={Boolean(errors.title)}
+            aria-describedby={errors.title ? 'drive-title-error' : undefined}
             {...register('title', {
               required: 'Enter a drive title.',
               minLength: { value: 3, message: 'Title must be at least 3 characters.' },
               maxLength: { value: 150, message: 'Title must be 150 characters or fewer.' },
             })}
           />
-          {errors.title ? <p className="field-error">{errors.title.message}</p> : null}
+          {errors.title ? (
+            <p className="field-error" id="drive-title-error">{errors.title.message}</p>
+          ) : null}
         </div>
 
         <div className="form-field">
@@ -99,9 +102,12 @@ export function CreateRecruitmentDriveForm({ clubId }: { clubId: string }) {
             id="drive-opens"
             type="datetime-local"
             aria-invalid={Boolean(errors.opensAt)}
+            aria-describedby={errors.opensAt ? 'drive-opens-error' : undefined}
             {...register('opensAt', { required: 'Choose an opening date and time.' })}
           />
-          {errors.opensAt ? <p className="field-error">{errors.opensAt.message}</p> : null}
+          {errors.opensAt ? (
+            <p className="field-error" id="drive-opens-error">{errors.opensAt.message}</p>
+          ) : null}
         </div>
 
         <div className="form-field">
@@ -110,6 +116,7 @@ export function CreateRecruitmentDriveForm({ clubId }: { clubId: string }) {
             id="drive-closes"
             type="datetime-local"
             aria-invalid={Boolean(errors.closesAt)}
+            aria-describedby={errors.closesAt ? 'drive-closes-error' : undefined}
             {...register('closesAt', {
               required: 'Choose a closing date and time.',
               validate: (value) =>
@@ -117,7 +124,9 @@ export function CreateRecruitmentDriveForm({ clubId }: { clubId: string }) {
                 'Closing time must be after the opening time.',
             })}
           />
-          {errors.closesAt ? <p className="field-error">{errors.closesAt.message}</p> : null}
+          {errors.closesAt ? (
+            <p className="field-error" id="drive-closes-error">{errors.closesAt.message}</p>
+          ) : null}
         </div>
 
         <div className="form-field recruitment-form-field--wide">
@@ -130,6 +139,7 @@ export function CreateRecruitmentDriveForm({ clubId }: { clubId: string }) {
             rows={3}
             placeholder="What applicants should know about this intake"
             aria-invalid={Boolean(errors.description)}
+            aria-describedby={errors.description ? 'drive-description-error' : undefined}
             {...register('description', {
               maxLength: {
                 value: 2000,
@@ -138,7 +148,7 @@ export function CreateRecruitmentDriveForm({ clubId }: { clubId: string }) {
             })}
           />
           {errors.description ? (
-            <p className="field-error">{errors.description.message}</p>
+            <p className="field-error" id="drive-description-error">{errors.description.message}</p>
           ) : null}
         </div>
 

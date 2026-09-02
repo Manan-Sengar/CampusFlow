@@ -109,7 +109,7 @@ export function RecruitmentDrivePage() {
             <div>
               <p className="eyebrow">Drive workflow</p>
               <h2 id="drive-status-title">Status controls</h2>
-              <p>Only transitions supported by the recruitment service are available here.</p>
+              <p>Open the drive when applications begin, or close it when recruitment ends.</p>
             </div>
           </div>
           <DriveStatusActions clubId={club.clubId} drive={drive} />

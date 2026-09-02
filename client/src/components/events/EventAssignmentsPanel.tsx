@@ -67,6 +67,7 @@ export function EventAssignmentsPanel({
 }: EventAssignmentsPanelProps) {
   const queryClient = useQueryClient()
   const [successMessage, setSuccessMessage] = useState<string | null>(null)
+  const [mutationError, setMutationError] = useState<unknown>(null)
   const { register, handleSubmit, reset, formState: { errors } } = useForm<AssignmentFormValues>({
     defaultValues: {
       membershipId: '',
@@ -78,6 +79,10 @@ export function EventAssignmentsPanel({
   const assignmentMutation = useMutation({
     mutationFn: (input: CreateEventAssignmentInput) =>
       createEventAssignment(clubId, event.id, input),
+    onMutate: () => {
+      setSuccessMessage(null)
+      setMutationError(null)
+    },
     onSuccess: async () => {
       setSuccessMessage('Member assigned. Their response is now pending.')
       reset()
@@ -85,11 +90,15 @@ export function EventAssignmentsPanel({
         queryKey: eventQueryKeys.assignments(clubId, event.id),
       })
     },
-    onError: () => setSuccessMessage(null),
+    onError: (error) => setMutationError(error),
   })
   const responseMutation = useMutation({
     mutationFn: ({ assignmentId, status }: { assignmentId: string; status: Exclude<EventAssignmentStatus, 'PENDING'> }) =>
       respondToEventAssignment(clubId, event.id, assignmentId, status),
+    onMutate: () => {
+      setSuccessMessage(null)
+      setMutationError(null)
+    },
     onSuccess: async (result) => {
       setSuccessMessage(
         result.changed
@@ -100,13 +109,12 @@ export function EventAssignmentsPanel({
         queryKey: eventQueryKeys.assignments(clubId, event.id),
       })
     },
-    onError: () => setSuccessMessage(null),
+    onError: (error) => setMutationError(error),
   })
   const assignedMembershipIds = new Set(assignments.map((assignment) => assignment.membershipId))
   const candidates = activeMembers.filter(
     (member) => !assignedMembershipIds.has(member.membershipId),
   )
-  const mutationError = assignmentMutation.error ?? responseMutation.error
 
   function submitAssignment(values: AssignmentFormValues) {
     assignmentMutation.mutate({
@@ -137,6 +145,7 @@ export function EventAssignmentsPanel({
             <select
               id="assignment-member"
               aria-invalid={Boolean(errors.membershipId)}
+              aria-describedby={errors.membershipId ? 'assignment-member-error' : undefined}
               disabled={membersPending || Boolean(membersError) || candidates.length === 0}
               {...register('membershipId', { required: 'Choose a member.' })}
             >
@@ -154,7 +163,7 @@ export function EventAssignmentsPanel({
               ))}
             </select>
             {errors.membershipId ? (
-              <p className="field-error">{errors.membershipId.message}</p>
+              <p className="field-error" id="assignment-member-error">{errors.membershipId.message}</p>
             ) : null}
           </div>
 
@@ -188,12 +197,13 @@ export function EventAssignmentsPanel({
               id="assignment-responsibility"
               placeholder="Registration desk, stage setup…"
               aria-invalid={Boolean(errors.responsibility)}
+              aria-describedby={errors.responsibility ? 'assignment-responsibility-error' : undefined}
               {...register('responsibility', {
                 maxLength: { value: 500, message: 'Responsibility must be 500 characters or fewer.' },
               })}
             />
             {errors.responsibility ? (
-              <p className="field-error">{errors.responsibility.message}</p>
+              <p className="field-error" id="assignment-responsibility-error">{errors.responsibility.message}</p>
             ) : null}
           </div>
 

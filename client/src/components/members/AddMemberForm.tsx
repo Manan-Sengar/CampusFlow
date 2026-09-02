@@ -55,12 +55,15 @@ export function AddMemberForm({ clubId }: { clubId: string }) {
             autoComplete="email"
             placeholder="member@campus.edu"
             aria-invalid={Boolean(errors.email)}
+            aria-describedby={errors.email ? 'member-email-error' : undefined}
             {...register('email', {
               required: 'Enter the user’s email address.',
               maxLength: { value: 255, message: 'Email must be 255 characters or fewer.' },
             })}
           />
-          {errors.email ? <p className="field-error">{errors.email.message}</p> : null}
+          {errors.email ? (
+            <p className="field-error" id="member-email-error">{errors.email.message}</p>
+          ) : null}
         </div>
 
         <div className="form-field">

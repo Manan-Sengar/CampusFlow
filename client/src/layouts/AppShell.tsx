@@ -34,6 +34,7 @@ export function AppShell() {
             <button
               className="button button--ghost button--compact"
               type="button"
+              aria-label={logoutMutation.isPending ? 'Signing out' : 'Log out'}
               disabled={logoutMutation.isPending}
               onClick={() => logoutMutation.mutate()}
             >

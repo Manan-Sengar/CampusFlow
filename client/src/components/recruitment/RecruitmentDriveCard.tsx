@@ -41,7 +41,7 @@ export function RecruitmentDriveCard({ clubId, drive, isAdmin }: RecruitmentDriv
 
       <div className="recruitment-card__footer">
         <Link className="recruitment-card__action" to={`/clubs/${clubId}/recruitment/${drive.id}`}>
-          Manage drive
+          {isAdmin ? 'Manage drive' : 'View drive'}
           <ArrowUpRight size={16} aria-hidden="true" />
         </Link>
         {applicantViewAvailable ? (

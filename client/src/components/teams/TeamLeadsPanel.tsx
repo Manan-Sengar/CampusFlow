@@ -34,6 +34,7 @@ export function TeamLeadsPanel({
   const queryClient = useQueryClient()
   const [membershipId, setMembershipId] = useState('')
   const [successMessage, setSuccessMessage] = useState<string | null>(null)
+  const [mutationError, setMutationError] = useState<unknown>(null)
   const leadsQuery = useQuery({
     queryKey: teamQueryKeys.leads(clubId, team.id),
     queryFn: () => listTeamLeads(clubId, team.id),
@@ -41,6 +42,10 @@ export function TeamLeadsPanel({
   const assignMutation = useMutation({
     mutationFn: (candidateMembershipId: string) =>
       assignTeamLead(clubId, team.id, candidateMembershipId),
+    onMutate: () => {
+      setSuccessMessage(null)
+      setMutationError(null)
+    },
     onSuccess: async (result) => {
       setSuccessMessage(result.changed ? 'Team lead assigned.' : 'That member is already a team lead.')
       setMembershipId('')
@@ -49,21 +54,25 @@ export function TeamLeadsPanel({
         queryClient.invalidateQueries({ queryKey: memberQueryKeys.list(clubId) }),
       ])
     },
-    onError: () => setSuccessMessage(null),
+    onError: (error) => setMutationError(error),
   })
   const removeMutation = useMutation({
     mutationFn: (leadMembershipId: string) =>
       removeTeamLead(clubId, team.id, leadMembershipId),
+    onMutate: () => {
+      setSuccessMessage(null)
+      setMutationError(null)
+    },
     onSuccess: async () => {
       setSuccessMessage('Team lead assignment removed.')
       await queryClient.invalidateQueries({ queryKey: teamQueryKeys.leads(clubId, team.id) })
     },
-    onError: () => setSuccessMessage(null),
+    onError: (error) => setMutationError(error),
   })
   const leads = leadsQuery.data?.leads ?? []
   const leadMembershipIds = new Set(leads.map((lead) => lead.membershipId))
   const candidates = activeMembers.filter((member) => !leadMembershipIds.has(member.membershipId))
-  const mutationError = assignMutation.error ?? removeMutation.error
+  const mutationPending = assignMutation.isPending || removeMutation.isPending
 
   function requestRemoval(leadName: string, leadMembershipId: string) {
     if (window.confirm(`Remove ${leadName} as a lead of ${team.name}?`)) {
@@ -106,7 +115,7 @@ export function TeamLeadsPanel({
                   type="button"
                   aria-label={`Remove ${lead.name} as a team lead`}
                   title="Remove team lead"
-                  disabled={removeMutation.isPending}
+                  disabled={mutationPending}
                   onClick={() => requestRemoval(lead.name, lead.membershipId)}
                 >
                   <UserMinus size={16} aria-hidden="true" />
@@ -132,7 +141,7 @@ export function TeamLeadsPanel({
               <select
                 id={`add-lead-${team.id}`}
                 value={membershipId}
-                disabled={membersPending || assignMutation.isPending || candidates.length === 0}
+                disabled={membersPending || mutationPending || candidates.length === 0}
                 onChange={(event) => setMembershipId(event.target.value)}
               >
                 <option value="">
@@ -151,7 +160,8 @@ export function TeamLeadsPanel({
               <button
                 className="button button--ghost button--compact"
                 type="button"
-                disabled={!membershipId || assignMutation.isPending}
+                aria-label={assignMutation.isPending ? 'Assigning team lead' : 'Assign team lead'}
+                disabled={!membershipId || mutationPending}
                 onClick={() => assignMutation.mutate(membershipId)}
               >
                 <Plus size={15} aria-hidden="true" />

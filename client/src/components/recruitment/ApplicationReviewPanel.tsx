@@ -126,6 +126,7 @@ export function ApplicationReviewPanel({ clubId, driveId }: { clubId: string; dr
       applicationId: string
       status: ReviewableApplicationStatus
     }) => updateApplicationStatus(clubId, driveId, applicationId, status),
+    onMutate: () => setSuccessMessage(null),
     onSuccess: async (result) => {
       setSuccessMessage(
         result.changed
@@ -160,7 +161,7 @@ export function ApplicationReviewPanel({ clubId, driveId }: { clubId: string; dr
         <p className="event-section__state"><LoaderCircle className="spin" size={16} /> Loading applications…</p>
       ) : null}
       {applicationsQuery.isError ? (
-        <div className="inline-error">
+        <div className="inline-error" role="alert">
           <p>{getErrorMessage(applicationsQuery.error)}</p>
           <button type="button" onClick={() => void applicationsQuery.refetch()}>
             <RefreshCcw size={15} aria-hidden="true" /> Retry
