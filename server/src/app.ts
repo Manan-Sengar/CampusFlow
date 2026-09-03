@@ -20,14 +20,31 @@ app.use(
   }),
 );
 
+// Cross-site production cookies need a write-request origin check, not just CORS headers.
+app.use((req, res, next) => {
+  if (
+    env.NODE_ENV === "production" &&
+    !["GET", "HEAD", "OPTIONS"].includes(req.method) &&
+    req.get("Origin") !== env.CLIENT_ORIGIN
+  ) {
+    res.status(403).json({
+      error: {
+        code: "UNTRUSTED_ORIGIN",
+        message: "This request must come from the configured CampusFlow frontend.",
+      },
+    });
+    return;
+  }
+
+  next();
+});
+
 app.use(express.json());
 app.use(cookieParser());
 
 app.use("/api/v1/auth", authRouter);
 
 app.use("/api/v1/clubs", clubRouter);
-
-app.use(errorHandler);
 
 app.get("/api/v1/health", (_req, res) => {
   res.status(200).json({
@@ -49,5 +66,7 @@ app.get("/api/v1/health/db", async (_req, res, next) => {
     next(error);
   }
 });
+
+app.use(errorHandler);
 
 export default app;

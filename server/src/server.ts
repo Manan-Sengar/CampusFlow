@@ -1,6 +1,6 @@
 import app from "./app.js";
 import { env } from "./config/env.js";
 
-app.listen(env.PORT, () => {
-  console.log(`CampusFlow API running on http://localhost:${env.PORT}`);
+app.listen(env.PORT, "0.0.0.0", () => {
+  console.log(`CampusFlow API listening on port ${env.PORT}`);
 });

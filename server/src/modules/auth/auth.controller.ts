@@ -1,4 +1,5 @@
 import type {
+  CookieOptions,
   Request,
   Response,
 } from "express";
@@ -21,6 +22,13 @@ import {
   registerSchema,
 } from "./auth.validation.js";
 
+const sessionCookieOptions: CookieOptions = {
+  httpOnly: true,
+  secure: env.NODE_ENV === "production",
+  sameSite: env.NODE_ENV === "production" ? "none" : "lax",
+  path: "/",
+};
+
 function setSessionCookie(
   res: Response,
   token: string,
@@ -29,11 +37,8 @@ function setSessionCookie(
     SESSION_COOKIE_NAME,
     token,
     {
-      httpOnly: true,
-      secure: env.NODE_ENV === "production",
-      sameSite: "lax",
+      ...sessionCookieOptions,
       maxAge: SESSION_DURATION_MS,
-      path: "/",
     },
   );
 }
@@ -176,12 +181,7 @@ export async function logout(
 
   res.clearCookie(
     SESSION_COOKIE_NAME,
-    {
-      httpOnly: true,
-      secure: env.NODE_ENV === "production",
-      sameSite: "lax",
-      path: "/",
-    },
+    sessionCookieOptions,
   );
 
   return res.status(204).send();
