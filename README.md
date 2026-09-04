@@ -31,6 +31,23 @@ CampusFlow brings those workflows into one club-scoped system. Roles and records
 - Multi-tenant club isolation across memberships, teams, events, assignments, and recruitment
 - Database-backed server sessions delivered through secure, HttpOnly cookies
 
+## Product preview
+
+### Club workspace
+Role-aware club workspace with membership status, navigation, and club-level access controls.
+
+![CampusFlow club workspace](docs/screenshots/club-workspace.png)
+
+### Event operations
+Event staffing with volunteer assignments, working-team context, member responses, and attendance tracking.
+
+![CampusFlow event operations](docs/screenshots/event-operations.png)
+
+### Recruitment workflow
+Recruitment administration with active team choices, ranked preferences, and applicant review statuses.
+
+![CampusFlow recruitment workflow](docs/screenshots/recruitment-workflow.png)
+
 ## Architecture
 
 ```mermaid
