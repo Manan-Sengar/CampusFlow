@@ -4,7 +4,7 @@
 
 CampusFlow is a full-stack workspace for running campus clubs across membership, team structure, event operations, and recruitment. It gives each club a focused, role-aware workspace while allowing one student account to participate in multiple clubs with different responsibilities.
 
-The project was built as a resume-focused full-stack application: a responsive React interface backed by an Express API, PostgreSQL data model, and server-side session authentication. Its workflows are deployed across Vercel, Render, and Neon and have been manually verified in production.
+CampusFlow is a production-deployed full-stack application with a responsive React interface backed by an Express API, PostgreSQL data model, and server-side session authentication. Its core workflows are deployed across Vercel, Render, and Neon and have been manually verified in production.
 
 ## The problem
 
@@ -286,7 +286,7 @@ npm run typecheck
 npm run build
 ```
 
-The production deployment has also been manually verified across the resume-sprint workflows:
+The production deployment has also been manually verified across the core production workflows:
 
 - API and database health checks against Render and Neon
 - Registration, login, current-user session restoration, and logout
@@ -305,9 +305,9 @@ There is currently no automated unit, integration, or end-to-end test suite; val
 - Campus and club provisioning are not self-service UI workflows; the current application operates on existing club data.
 - Selecting a recruitment applicant does not automatically create a membership or team assignment.
 - Attendance is intentionally manual, with no QR-code or check-in automation.
-- Email invitations, notifications, and reminders are outside the current sprint.
+- Email invitations, notifications, and reminders are outside the current release.
 - Expanded edit/archive lifecycle controls, automated tests, CI, observability, and accessibility audits would be natural next steps.
 
 ## Project status
 
-**Resume sprint complete and deployed.** Core membership, team, event, and recruitment workflows are implemented and manually verified in production. The repository is being maintained as a full-stack portfolio project; additional work is intentionally deferred beyond the current milestone.
+**Production MVP deployed**. Core membership, team, event, and recruitment workflows are implemented and manually verified in production. Future iterations can extend the platform with automated testing, notifications, richer lifecycle controls, and additional campus-level administration.
